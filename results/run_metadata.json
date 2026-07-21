@@ -1,0 +1,52 @@
+{
+  "data_source": "SIMULATED",
+  "warning": "Research prototype; not medical performance or diagnosis.",
+  "features": [
+    "s11_max_db",
+    "s11_min_db",
+    "s11_mean_db",
+    "s11_median_db",
+    "s11_std_db",
+    "s11_range_db",
+    "s11_slope",
+    "s11_auc",
+    "s11_max_frequency_ghz",
+    "s11_min_frequency_ghz",
+    "s11_strongest_prominence_db",
+    "s21_max_db",
+    "s21_min_db",
+    "s21_mean_db",
+    "s21_median_db",
+    "s21_std_db",
+    "s21_range_db",
+    "s21_slope",
+    "s21_auc",
+    "s21_max_frequency_ghz",
+    "s21_min_frequency_ghz",
+    "s21_strongest_prominence_db"
+  ],
+  "split_method": "StratifiedGroupKFold (first of 5 folds)",
+  "random_seed": 42,
+  "unique_samples": 30,
+  "measurements": 90,
+  "train_measurements": 72,
+  "test_measurements": 18,
+  "train_samples": 24,
+  "test_samples": 6,
+  "sample_overlap": 0,
+  "class_distribution": {
+    "Normal": 30,
+    "Crack Risk": 30,
+    "High Fracture Risk": 30
+  },
+  "software_versions": {
+    "python": "3.12.4",
+    "numpy": "2.2.6",
+    "pandas": "2.3.3",
+    "scipy": "1.15.3",
+    "matplotlib": "3.10.8",
+    "scikit_learn": "1.7.2",
+    "joblib": "1.5.2",
+    "streamlit": "1.52.2"
+  }
+}
