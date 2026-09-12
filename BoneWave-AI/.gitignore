@@ -1,0 +1,7 @@
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Runtime measurements are local and may contain experimental data.
+data/live_sessions/

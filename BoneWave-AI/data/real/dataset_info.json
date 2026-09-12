@@ -1,0 +1,28 @@
+{
+  "dataset_type": "real_measurements",
+  "acquisition_design": "same_specimen_multiple_angles",
+  "classes": {
+    "air": {
+      "files": 100,
+      "role": "air_target_reference"
+    },
+    "normal": {
+      "files": 100,
+      "physical_specimens": 1,
+      "role": "target_reference"
+    },
+    "crack": {
+      "files": 100,
+      "physical_specimens": 1,
+      "role": "target_reference"
+    }
+  },
+  "exact_duplicate_pairs": [
+    ["normal/Normal_044.s2p", "normal/Normal_045.s2p"],
+    ["normal/Normal_085.s2p", "normal/Normal_086.s2p"],
+    ["crack/Crack_096.s2p", "crack/Crack_097.s2p"]
+  ],
+  "independent_test_specimens": 0,
+  "usage": "Same-specimen, multi-angle reference matching only",
+  "warning": "Do not report this dataset as independent validation or medical diagnostic accuracy."
+}
