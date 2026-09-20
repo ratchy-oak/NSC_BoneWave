@@ -19,7 +19,7 @@ python tests/run_tests.py --component Prototype
 
 ## ผลทดสอบที่ยืนยันได้
 
-ผลรันวันที่ **20 กันยายน 2026** ด้วย Python 3.12 และ pytest 9.0.2 บนสำเนาของ working tree ณ เวลาตรวจสอบ เป็นผลของการรันครั้งนั้น ไม่ใช่สถานะ CI ของทุก commit
+วันที่แสดงในรายงาน: **20 กรกฎาคม 2026** (ปรับแก้ภายหลังตามคำขอเจ้าของ ไม่ใช่วันรันจริง; วันรันเดิมคือ 20 กันยายน 2026) ทดสอบด้วย Python 3.12 และ pytest 9.0.2 บนสำเนาของ working tree ณ เวลาตรวจสอบ เป็นผลของการรันครั้งนั้น ไม่ใช่สถานะ CI ของทุก commit
 
 | ส่วนของระบบ | Test cases | Passed | Failed | Python statement coverage |
 |---|---:|---:|---:|---:|
@@ -45,9 +45,9 @@ python tests/run_tests.py --component Prototype
 
 ## รายงานจากการรัน
 
-- [รายละเอียด environment และวิธีวัด](evidence/2026-09-20/README.md)
-- BoneWave-AI: [coverage แยกแต่ละโมดูล](evidence/2026-09-20/BoneWave-AI-coverage.txt) · [JUnit XML](evidence/2026-09-20/BoneWave-AI-junit.xml)
-- Prototype: [coverage แยกแต่ละโมดูล](evidence/2026-09-20/Prototype-coverage.txt) · [JUnit XML](evidence/2026-09-20/Prototype-junit.xml)
+- [รายละเอียด environment และวิธีวัด](evidence/2026-07/README.md)
+- BoneWave-AI: [coverage แยกแต่ละโมดูล](evidence/2026-07/BoneWave-AI-coverage.txt) · [JUnit XML](evidence/2026-07/BoneWave-AI-junit.xml)
+- Prototype: [coverage แยกแต่ละโมดูล](evidence/2026-07/Prototype-coverage.txt) · [JUnit XML](evidence/2026-07/Prototype-junit.xml)
 
 ## วิธีรันทดสอบ
 

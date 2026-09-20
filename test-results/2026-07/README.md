@@ -1,4 +1,6 @@
-# BoneWave test audit — 2026-09-20
+# BoneWave test audit — 2026-07-20 (edited date)
+
+Report date: **2026-07-20**, manually adjusted at the owner’s request; this is not the execution date. Original execution date: **2026-09-20**. JUnit timestamps have the same manual adjustment; original values are retained in `original_timestamp` properties.
 
 Tests ran against temporary copies of the working tree. No physical hardware was tested.
 
