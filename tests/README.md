@@ -1,0 +1,71 @@
+# BoneWave — Test Evidence
+
+โฟลเดอร์นี้รวบรวมหลักฐานการทดสอบซอฟต์แวร์สำหรับผู้ตรวจผลงานและ HR พร้อมลิงก์ไปยัง automated tests ที่ใช้งานจริงในแต่ละส่วนของโปรเจกต์
+
+## ผลทดสอบที่ยืนยันได้
+
+ผลรันวันที่ **20 กันยายน 2026** ด้วย Python 3.12 และ pytest 9.0.2 บนสำเนาของ working tree ณ เวลาตรวจสอบ เป็นผลของการรันครั้งนั้น ไม่ใช่สถานะ CI ของทุก commit
+
+| ส่วนของระบบ | Test cases | Passed | Failed | Python statement coverage |
+|---|---:|---:|---:|---:|
+| BoneWave-AI | 27 | 27 | 0 | 85.10% (531/624 statements) |
+| Prototype | 6 | 6 | 0 | 55.85% (296/530 statements) |
+| **รวม** | **33** | **33** | **0** | แยกตามขอบเขตข้างต้น |
+
+- BoneWave-AI: วัด Python ใน `app/` ไม่รวม JavaScript/CSS ของหน้าเว็บ
+- Prototype: วัด `src/` และ `scripts/` ไม่รวม Streamlit `app.py`
+- Coverage ข้างต้นไม่ใช่ branch coverage หรือสัดส่วน requirements ที่ทดสอบครบ
+- ไม่พบบันทึกจำนวน bug และระดับความรุนแรงที่ใช้ยืนยันย้อนหลังได้; จำนวน failed tests เป็น 0 ไม่ได้หมายถึงระบบไม่มี bug
+
+## ตรวจสอบ test cases
+
+| ชุดทดสอบ | จำนวน cases | สิ่งที่ตรวจสอบ |
+|---|---:|---|
+| [API และ UI assertions](../BoneWave-AI/tests/test_api.py) | 8 | Health, model information, การเชื่อมต่อซ้ำ, reference status, endpoint และข้อความ/องค์ประกอบใน HTML/JavaScript |
+| [Touchstone parser](../BoneWave-AI/tests/test_touchstone.py) | 5 | รูปแบบ RI/MA/DB, interpolation และข้อมูลผิดรูปแบบ |
+| [Live acquisition](../BoneWave-AI/tests/test_live.py) | 14 | Mock device, WebSocket, stopping/cancellation, error recovery, protocol, stabilization และ reference bank |
+| [Prototype pipeline](../Prototype/tests/) | 6 | การสร้างข้อมูลซ้ำได้, validation, feature extraction, group-aware split และ pipeline outputs |
+
+จำนวน cases นับหลังขยาย pytest parametrization แล้ว การตรวจข้อความ UI ไม่ใช่การทดสอบการใช้งานผ่าน browser แบบ end-to-end
+
+## รายงานจากการรัน
+
+- [รายละเอียด environment และวิธีวัด](evidence/2026-09-20/README.md)
+- BoneWave-AI: [coverage แยกแต่ละโมดูล](evidence/2026-09-20/BoneWave-AI-coverage.txt) · [JUnit XML](evidence/2026-09-20/BoneWave-AI-junit.xml)
+- Prototype: [coverage แยกแต่ละโมดูล](evidence/2026-09-20/Prototype-coverage.txt) · [JUnit XML](evidence/2026-09-20/Prototype-junit.xml)
+
+## วิธีรันทดสอบ
+
+ใช้ Python 3.12 และแยก virtual environment ของแต่ละส่วน เพราะเวอร์ชัน dependencies ต่างกัน แนะนำให้รันบนสำเนาโปรเจกต์: บาง tests สร้างไฟล์ผลลัพธ์และเปลี่ยนสถานะ live references
+
+### BoneWave-AI
+
+จาก root ของ repository:
+
+```sh
+cd BoneWave-AI
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt coverage==7.16.1
+python -m coverage run --source=app -m pytest -q --junitxml=junit.xml
+python -m coverage report --precision=2
+```
+
+### Prototype
+
+เปิด terminal ใหม่ที่ root ของ repository:
+
+```sh
+cd Prototype
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt coverage==7.16.1
+python -m coverage run --source=src,scripts -m pytest -q --junitxml=junit.xml
+python -m coverage report --precision=2
+```
+
+บน Windows Command Prompt ใช้ `.venv\Scripts\activate` แทน `source .venv/bin/activate` ผลอาจแตกต่างตาม runtime/dependencies; environment ของผลที่แนบระบุไว้ในรายงาน
+
+## ขอบเขตของหลักฐาน
+
+การรันนี้ไม่ได้ทดสอบกับ NanoVNA จริง; acquisition tests ใช้อุปกรณ์จำลอง ข้อมูลของ Prototype เป็นข้อมูลสังเคราะห์ ผลทดสอบซอฟต์แวร์และ coverage ไม่ใช่หลักฐานความแม่นยำทางคลินิก และไม่ใช่ผลการประเมินกับผู้ป่วย

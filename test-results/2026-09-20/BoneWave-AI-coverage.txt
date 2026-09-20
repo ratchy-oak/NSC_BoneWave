@@ -1,0 +1,13 @@
+Name                         Stmts   Miss   Cover
+-------------------------------------------------
+app/__init__.py                  0      0 100.00%
+app/live_manager.py            200      9  95.50%
+app/main.py                     79      8  89.87%
+app/nanovna/__init__.py          0      0 100.00%
+app/nanovna/acquisition.py      18      0 100.00%
+app/nanovna/device.py           85     52  38.82%
+app/nanovna/protocol.py         54      8  85.19%
+app/predictor.py               124     10  91.94%
+app/touchstone.py               64      6  90.62%
+-------------------------------------------------
+TOTAL                          624     93  85.10%
