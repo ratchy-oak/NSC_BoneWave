@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="1" time="12.029" timestamp="2026-09-21T00:24:34.181138+07:00" hostname="Ratchy-Oak----MacBook.local"><testcase classname="tests.e2e.test_dashboard" name="test_mock_scan_completes_and_disconnects" time="12.017" /></testsuite></testsuites>

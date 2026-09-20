@@ -2,6 +2,22 @@
 
 โฟลเดอร์นี้รวบรวมหลักฐานการทดสอบซอฟต์แวร์สำหรับผู้ตรวจผลงานและ HR พร้อมลิงก์ไปยัง automated tests ที่ใช้งานจริงในแต่ละส่วนของโปรเจกต์
 
+## ผลล่าสุดหลังเพิ่ม E2E และ driver tests — 21 กันยายน 2026
+
+| ชุดทดสอบ | ผ่าน | Statement coverage |
+|---|---:|---:|
+| BoneWave-AI Python | 41/41 | **94.55%** (`app/`) |
+| Prototype Python | 6/6 | 55.85% (`src/`, `scripts/`) |
+| Playwright Chromium E2E | 1/1 | ไม่ได้วัด JS coverage |
+| **รวม** | **48/48** | ไม่รวม coverage ข้ามขอบเขต |
+
+`device.py` เพิ่มจาก **38.82% เป็น 100% statement coverage** ด้วย fake serial transport; ไม่ใช่ผลตรวจอุปกรณ์จริง ไม่มี failed หรือ skipped cases ในการรันสำเร็จล่าสุด
+
+- [รายงานล่าสุด ภาพหน้าจอ และ Playwright trace](evidence/2026-09-21/README.md)
+- [Test plan และ requirement → test case](TEST_PLAN.md)
+- [วิธีบันทึก bug ใน GitHub Issues](BUG_TRACKING.md)
+- [คำอธิบายสัมภาษณ์และข้อความ CV ล่าสุด](INTERVIEW_TH.md)
+
 ## ตรวจผลล่าสุดและรันซ้ำ
 
 [GitHub Actions — BoneWave tests](https://github.com/ratchy-oak/NSC_BoneWave/actions/workflows/tests.yml) จะรันทดสอบแยกสองส่วนเมื่อ push หรือเปิด pull request หลัง workflow นี้ถูก push ขึ้น GitHub สำเร็จ แต่ละ run มี artifacts ได้แก่ JUnit XML, coverage รายโมดูล, summary JSON และเวอร์ชัน dependencies จริง ตัวเลขด้านล่างเป็น snapshot ไม่ใช่ตัวเลขที่ปรับเองตาม CI
@@ -17,7 +33,7 @@ python tests/run_tests.py --component Prototype
 
 [คำอธิบายสำหรับสัมภาษณ์และข้อความ CV](INTERVIEW_TH.md)
 
-## ผลทดสอบที่ยืนยันได้
+## ผลทดสอบเดิมก่อนเพิ่ม E2E และ driver tests
 
 วันที่แสดงในรายงาน: **20 กรกฎาคม 2026** (ปรับแก้ภายหลังตามคำขอเจ้าของ ไม่ใช่วันรันจริง; วันรันเดิมคือ 20 กันยายน 2026) ทดสอบด้วย Python 3.12 และ pytest 9.0.2 บนสำเนาของ working tree ณ เวลาตรวจสอบ เป็นผลของการรันครั้งนั้น ไม่ใช่สถานะ CI ของทุก commit
 
@@ -32,7 +48,7 @@ python tests/run_tests.py --component Prototype
 - Coverage ข้างต้นไม่ใช่ branch coverage หรือสัดส่วน requirements ที่ทดสอบครบ
 - ไม่พบบันทึกจำนวน bug และระดับความรุนแรงที่ใช้ยืนยันย้อนหลังได้; จำนวน failed tests เป็น 0 ไม่ได้หมายถึงระบบไม่มี bug
 
-## ตรวจสอบ test cases
+## ชุดทดสอบเดิม (ก่อนเพิ่ม driver tests และ E2E)
 
 | ชุดทดสอบ | จำนวน cases | สิ่งที่ตรวจสอบ |
 |---|---:|---|

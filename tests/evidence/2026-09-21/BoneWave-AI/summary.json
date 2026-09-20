@@ -1,0 +1,24 @@
+{
+  "component": "BoneWave-AI",
+  "source_scope": "app",
+  "python": "3.12.4",
+  "commit": "350d68292166b16e187babdd7098e046f25a5292",
+  "working_tree_dirty": true,
+  "pytest_exit_code": 0,
+  "counts": {
+    "tests": 41,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "coverage": {
+    "covered_lines": 590,
+    "num_statements": 624,
+    "percent_covered": 94.55128205128206,
+    "percent_covered_display": "95",
+    "missing_lines": 34,
+    "excluded_lines": 7,
+    "percent_statements_covered": 94.55128205128206,
+    "percent_statements_covered_display": "95"
+  }
+}

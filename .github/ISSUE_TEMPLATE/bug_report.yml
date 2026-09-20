@@ -1,0 +1,47 @@
+name: Bug report
+description: Record a reproducible BoneWave defect and its verification evidence.
+title: "[Bug] "
+body:
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment and revision
+      description: Commit, OS, Python/browser versions, MOCK or hardware model/firmware.
+    validations:
+      required: true
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity (proposed)
+      options:
+        - Critical — data loss or system unusable
+        - High — core workflow blocked
+        - Medium — incorrect behavior with workaround
+        - Low — minor presentation issue
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Reproduction steps
+      description: Include preconditions, input data, and exact actions.
+    validations:
+      required: true
+  - type: textarea
+    id: expected_actual
+    attributes:
+      label: Expected and actual behavior
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      description: Link to CI run, screenshot, Playwright trace, logs, or failing test.
+    validations:
+      required: true
+  - type: textarea
+    id: verification
+    attributes:
+      label: Fix and retest
+      description: Fill after a fix; include commit/PR and regression test result.

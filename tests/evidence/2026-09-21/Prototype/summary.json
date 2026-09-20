@@ -1,0 +1,24 @@
+{
+  "component": "Prototype",
+  "source_scope": "src,scripts",
+  "python": "3.12.4",
+  "commit": "350d68292166b16e187babdd7098e046f25a5292",
+  "working_tree_dirty": true,
+  "pytest_exit_code": 0,
+  "counts": {
+    "tests": 6,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "coverage": {
+    "covered_lines": 296,
+    "num_statements": 530,
+    "percent_covered": 55.84905660377358,
+    "percent_covered_display": "56",
+    "missing_lines": 234,
+    "excluded_lines": 0,
+    "percent_statements_covered": 55.84905660377358,
+    "percent_statements_covered_display": "56"
+  }
+}

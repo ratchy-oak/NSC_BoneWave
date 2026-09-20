@@ -8,11 +8,15 @@
 
 หลักฐาน: [test_live.py](../BoneWave-AI/tests/test_live.py) โดยเฉพาะ `test_release_after_errors`, `test_one_sample_scan_stops_after_configured_sweeps` และ `test_v2_binary_protocol_commands_and_fifo` การทดสอบ protocol ใช้ข้อมูล binary ที่สร้างขึ้น ไม่ได้ยืนยันการทำงานกับอุปกรณ์จริง
 
-## Coverage 85% หมายถึงอะไร และทำไมไม่รวม UI?
+## Coverage ล่าสุดหมายถึงอะไร และ UI ทดสอบอย่างไร?
 
-“ผล snapshot ที่ติดวันที่ 20 กรกฎาคม 2026 (วันที่ปรับแก้ภายหลัง; รันจริง 20 กันยายน 2026) วัด statement coverage ของ Python ใน BoneWave-AI/app ได้ 531 จาก 624 statements หรือ 85.10% เครื่องมือ coverage.py เก็บการทำงานของ Python; JavaScript ต้องใช้เครื่องมือและ browser tests เพิ่ม ส่วน Streamlit app.py อยู่ใน Prototype และไม่ได้อยู่ในขอบเขต src/scripts ของการรันนั้น ผมจึงระบุขอบเขตทุกครั้ง ไม่อ้างว่า 85% ครอบคลุมทั้งระบบ”
+“หลังเพิ่ม driver tests ผลรัน 21 กันยายน 2026 ได้ Python statement coverage ของ BoneWave-AI/app 590 จาก 624 statements หรือ 94.55% เพิ่มจาก 85.10% ส่วน device.py เพิ่มจาก 38.82% เป็น 100% ด้วย fake serial transport ที่ตรวจ success path, fragmented reads, timeout และ error handling”
 
-หลักฐาน: [รายงานแยกโมดูล](evidence/2026-07/BoneWave-AI-coverage.txt) ข้อจำกัดที่เห็นชัดคือ `app/nanovna/device.py` ได้ 38.82% แม้บางส่วน เช่น acquisition จะได้ 100% และ UI tests ปัจจุบันตรวจข้อความ HTML/JavaScript ไม่ใช่ browser end-to-end tests
+“ผมเพิ่ม Playwright E2E 1 case ให้ Chromium เปิด dashboard จริง กดเชื่อมต่อ MOCK เปิดและปิดหน้าต่าง setup แล้วสแกนผ่าน API/WebSocket จริง ตรวจครบ 3 sweeps ผลที่แสดงตรงกับ backend และ disconnect สำเร็จ โดยไม่ stub network responses”
+
+หลักฐาน: [รายงานล่าสุด](evidence/2026-09-21/README.md), [driver tests](../BoneWave-AI/tests/test_device.py), [browser test](e2e/test_dashboard.py)
+
+Python coverage ไม่รวม JavaScript และไม่ได้รวม server subprocess ของ E2E การทดสอบ browser นี้ตรวจ behavior ไม่ได้วัด JS coverage และยังไม่ครอบคลุม Streamlit UI หรือ hardware จริง การได้ 100% statement coverage ไม่ได้แปลว่าทุก branch หรือทุกสภาพอุปกรณ์ถูกทดสอบแล้ว
 
 ## ตรวจ train/test overlap อย่างไร?
 
@@ -26,14 +30,14 @@
 
 ค่า metadata ถูกกำหนดเป็น 0 หลังผ่าน guard; หลักฐานการไม่ overlap จึงอยู่ที่การตรวจ sets ด้วย ไม่ใช่การอ่าน metadata เพียงอย่างเดียว ปัจจุบันใช้ผลแบ่งแรกจาก 5 folds ไม่ได้รายงานค่าเฉลี่ยการประเมินทุก fold และเป็นข้อมูลสังเคราะห์ ไม่ใช่ผลความแม่นยำทางคลินิก
 
-## 33 tests และจำนวน bug อธิบายอย่างไร?
+## จำนวน tests และ bug อธิบายอย่างไร?
 
-“ผล snapshot คือ BoneWave-AI 27 cases และ Prototype 6 cases รวม 33 cases ผ่านทั้งหมด โดยนับหลังขยาย parametrization จำนวนนี้เป็น cases ในชุดทดสอบ ไม่ใช่จำนวน bugs ที่เคยพบ ผมยังไม่มี defect log ที่ใช้สรุปจำนวน bugs ย้อนหลังได้”
+“ผลล่าสุดคือ BoneWave-AI Python 41 cases, Prototype 6 cases และ Chromium E2E 1 case รวม 48 cases ผ่านทั้งหมด ไม่พบ skipped cases โดยนับ pytest cases หลังขยาย parametrization จำนวนนี้ไม่ใช่จำนวน bugs ที่เคยพบ”
 
-เมื่อแก้ tests ให้ตรวจรายงานล่าสุดใน GitHub Actions และอัปเดตตัวเลข CV ตามผลรัน โดยเก็บวันที่และขอบเขตของตัวเลขไว้ด้วย
+เพิ่มแบบฟอร์ม GitHub Issues และ [วิธีบันทึก defect](BUG_TRACKING.md) แล้ว แต่ยังไม่มีตัวเลข defect ที่ยืนยันจาก issue records ในงานนี้ ให้บันทึกเมื่อ reproduce ปัญหาจริงได้ พร้อมแนบ evidence และ regression test
 
 ## ข้อความสำหรับ CV
 
-> พัฒนาและทดสอบ BoneWave ด้วย automated tests 33 cases ผ่านทั้งหมด พร้อม Python statement coverage 85.10% ในส่วน BoneWave-AI backend ครอบคลุม API, WebSocket, Touchstone parsing และ acquisition logic ผ่าน Mock NanoVNA; ตรวจการแบ่งข้อมูลสังเคราะห์ของ Prototype ให้ train/test ไม่มี sample_id ซ้ำกัน (รายงานติดวันที่ 20 ก.ค. 2026 โดยปรับแก้ภายหลัง; รันจริง 20 ก.ย. 2026)
+> พัฒนาและทดสอบ BoneWave ด้วย automated tests 48 cases ผ่านทั้งหมด รวม Playwright/Chromium E2E สำหรับ workflow เชื่อมต่อ–สแกน–แสดงผล–ตัดการเชื่อมต่อ ผ่าน Mock NanoVNA เพิ่ม Python backend statement coverage จาก 85.10% เป็น 94.55% และ device.py จาก 38.82% เป็น 100% ด้วย driver tests พร้อมจัดทำ requirement-to-test traceability และ GitHub Actions workflow (ผลรันในเครื่อง 21 ก.ย. 2026)
 
-ใช้ข้อความนี้เมื่อบทบาท “พัฒนาและทดสอบ” ตรงกับงานส่วนตัวที่ทำจริง และอัปเดตตัวเลขหากอ้างอิงผลรันใหม่
+ใช้ข้อความเมื่อบทบาทตรงกับงานที่ทำจริง Workflow จะมีผลรันบน GitHub หลัง push; ผลปัจจุบันยืนยันจากการรันในเครื่อง ตรวจผลใหม่และปรับตัวเลข CV เมื่อชุดทดสอบเปลี่ยน
