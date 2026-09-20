@@ -18,7 +18,6 @@ Browser E2E ประกอบด้วย mock 1 case และ replay ไฟ�
 - [รายงานล่าสุด ภาพหน้าจอ และ Playwright trace](evidence/2026-09-21/README.md)
 - [Test plan และ requirement → test case](TEST_PLAN.md)
 - [วิธีบันทึก bug ใน GitHub Issues](BUG_TRACKING.md)
-- [คำอธิบายสัมภาษณ์และข้อความ CV ล่าสุด](INTERVIEW_TH.md)
 
 ## ตรวจผลล่าสุดและรันซ้ำ
 
@@ -34,8 +33,6 @@ python tests/run_tests.py --component Prototype
 ```
 
 ควรใช้ environment แยกสำหรับแต่ละส่วนตามวิธีติดตั้งด้านล่าง หาก environment มี dependencies ครบทั้งสองส่วน สามารถใช้ `python tests/run_tests.py` เพื่อรันทั้งคู่ได้ ตัว runner ใช้สำเนาชั่วคราวและบันทึกผลล่าสุดลง `test-results/latest/` ไม่แก้ข้อมูลต้นฉบับ ผล failed tests ทำให้คำสั่งและ CI ล้มเหลว จำนวน tests และ coverage คำนวณจากการรันจริง ไม่มีการกำหนดให้แสดง 33 หรือ 85% ตายตัว
-
-[คำอธิบายสำหรับสัมภาษณ์และข้อความ CV](INTERVIEW_TH.md)
 
 ## ผลทดสอบเดิมก่อนเพิ่ม E2E และ driver tests
 
