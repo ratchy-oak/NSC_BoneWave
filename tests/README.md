@@ -2,6 +2,21 @@
 
 โฟลเดอร์นี้รวบรวมหลักฐานการทดสอบซอฟต์แวร์สำหรับผู้ตรวจผลงานและ HR พร้อมลิงก์ไปยัง automated tests ที่ใช้งานจริงในแต่ละส่วนของโปรเจกต์
 
+## ตรวจผลล่าสุดและรันซ้ำ
+
+[GitHub Actions — BoneWave tests](https://github.com/ratchy-oak/NSC_BoneWave/actions/workflows/tests.yml) จะรันทดสอบแยกสองส่วนเมื่อ push หรือเปิด pull request หลัง workflow นี้ถูก push ขึ้น GitHub สำเร็จ แต่ละ run มี artifacts ได้แก่ JUnit XML, coverage รายโมดูล, summary JSON และเวอร์ชัน dependencies จริง ตัวเลขด้านล่างเป็น snapshot ไม่ใช่ตัวเลขที่ปรับเองตาม CI
+
+หลังติดตั้ง dependencies ของส่วนที่ต้องการและ `coverage==7.16.1` ให้รันจาก root:
+
+```sh
+python tests/run_tests.py --component BoneWave-AI
+python tests/run_tests.py --component Prototype
+```
+
+ควรใช้ environment แยกสำหรับแต่ละส่วนตามวิธีติดตั้งด้านล่าง หาก environment มี dependencies ครบทั้งสองส่วน สามารถใช้ `python tests/run_tests.py` เพื่อรันทั้งคู่ได้ ตัว runner ใช้สำเนาชั่วคราวและบันทึกผลล่าสุดลง `test-results/latest/` ไม่แก้ข้อมูลต้นฉบับ ผล failed tests ทำให้คำสั่งและ CI ล้มเหลว จำนวน tests และ coverage คำนวณจากการรันจริง ไม่มีการกำหนดให้แสดง 33 หรือ 85% ตายตัว
+
+[คำอธิบายสำหรับสัมภาษณ์และข้อความ CV](INTERVIEW_TH.md)
+
 ## ผลทดสอบที่ยืนยันได้
 
 ผลรันวันที่ **20 กันยายน 2026** ด้วย Python 3.12 และ pytest 9.0.2 บนสำเนาของ working tree ณ เวลาตรวจสอบ เป็นผลของการรันครั้งนั้น ไม่ใช่สถานะ CI ของทุก commit
