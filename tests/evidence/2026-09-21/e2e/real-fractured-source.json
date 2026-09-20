@@ -1,0 +1,7 @@
+{
+  "device": "Recorded real dataset replay",
+  "source_file": "Crack_002.s2p",
+  "source_sha256": "8ec0ec759c8da6c4b9d9905a88c5293a534225288c294d343b4f5f46f8389926",
+  "data_source": "recorded_real_measurement_replay",
+  "live_hardware": false
+}

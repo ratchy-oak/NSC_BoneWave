@@ -1,0 +1,7 @@
+{
+  "device": "Recorded real dataset replay",
+  "source_file": "Normal_002.s2p",
+  "source_sha256": "e3b331f22037ca94366e20bd51a2c07fb89d064e8c927ec6f30e5318d7f1c437",
+  "data_source": "recorded_real_measurement_replay",
+  "live_hardware": false
+}

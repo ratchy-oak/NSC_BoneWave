@@ -16,7 +16,7 @@ ARTIFACTS = Path(os.environ.get("E2E_ARTIFACTS", ROOT / "test-results/latest/e2e
 
 
 @pytest.fixture
-def dashboard(tmp_path):
+def dashboard(tmp_path, request):
     work = tmp_path / "BoneWave-AI"
     for folder in ("app", "config", "data/real"):
         shutil.copytree(ROOT / "BoneWave-AI" / folder, work / folder,
@@ -25,10 +25,18 @@ def dashboard(tmp_path):
         sock.bind(("127.0.0.1", 0))
         port = sock.getsockname()[1]
     ARTIFACTS.mkdir(parents=True, exist_ok=True)
-    with (ARTIFACTS / "server.log").open("w") as log:
-        process = subprocess.Popen([sys.executable, "-m", "uvicorn", "app.main:app",
+    environment = dict(os.environ)
+    target = "app.main:app"
+    kind = getattr(request, "param", None)
+    if kind:
+        prefix = {"air": "Air", "normal": "Normal", "crack": "Crack"}[kind]
+        environment["BONEWAVE_REPLAY_FILE"] = str(work / "data/real" / kind / f"{prefix}_002.s2p")
+        shutil.copy2(Path(__file__).with_name("replay_app.py"), work / "replay_app.py")
+        target = "replay_app:app"
+    with (ARTIFACTS / f"{request.node.name}-server.log").open("w") as log:
+        process = subprocess.Popen([sys.executable, "-m", "uvicorn", target,
                                     "--host", "127.0.0.1", "--port", str(port)],
-                                   cwd=work, stdout=log, stderr=subprocess.STDOUT)
+                                   cwd=work, env=environment, stdout=log, stderr=subprocess.STDOUT)
         try:
             base_url = f"http://127.0.0.1:{port}"
             deadline = time.monotonic() + 20

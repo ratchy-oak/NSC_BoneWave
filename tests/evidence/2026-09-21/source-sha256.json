@@ -18,6 +18,10 @@
   "BoneWave-AI/tests/test_touchstone.py": "fb70fe95aa0c87237ce134815b2bc3b41f7aa56916e7cdd659cd0385330e97d8",
   "BoneWave-AI/tests/test_device.py": "7587a1784ce4458c51b939b3e8ccaafa79e613b4df5d2a84960439329269ba79",
   "BoneWave-AI/tests/test_api.py": "30e6efe140f4b4cc8fc7834df8a5698d79ce668ad1b4ea2e132a9da983fef9ad",
-  "tests/e2e/conftest.py": "aeaa1ebe1858bd5b9ac0e602ba00e61752b30a10a9fd60e879b1d05f9b91a1f2",
-  "tests/e2e/test_dashboard.py": "190d6ce8139b4183ae36f3e69a7b1b1be14c2ce24a6e5c67a907bc07a6ab7aba"
+  "tests/e2e/conftest.py": "7c2ce6d63fbcff974efe1d0782f211d3531e5e0268e9c042d7367ac2b49e4b32",
+  "tests/e2e/test_dashboard.py": "b4e0f565d71cb539a3d9a7518ba8e203f08c4d29cc210f0abfacd0db9b15dda9",
+  "tests/e2e/replay_app.py": "74d08ddfef3e8958596cfd88ac909e9a9dec3f3673d8a91546491af5302a5197",
+  "BoneWave-AI/data/real/air/Air_002.s2p": "0049c59e3bd6645cd9e0a87dd997a9f1fdd229dbc2b24d3cc7ee0f1986f49157",
+  "BoneWave-AI/data/real/normal/Normal_002.s2p": "e3b331f22037ca94366e20bd51a2c07fb89d064e8c927ec6f30e5318d7f1c437",
+  "BoneWave-AI/data/real/crack/Crack_002.s2p": "8ec0ec759c8da6c4b9d9905a88c5293a534225288c294d343b4f5f46f8389926"
 }

@@ -1,0 +1,7 @@
+{
+  "device": "Recorded real dataset replay",
+  "source_file": "Air_002.s2p",
+  "source_sha256": "0049c59e3bd6645cd9e0a87dd997a9f1fdd229dbc2b24d3cc7ee0f1986f49157",
+  "data_source": "recorded_real_measurement_replay",
+  "live_hardware": false
+}

@@ -8,8 +8,10 @@
 |---|---:|---:|
 | BoneWave-AI Python | 41/41 | **94.55%** (`app/`) |
 | Prototype Python | 6/6 | 55.85% (`src/`, `scripts/`) |
-| Playwright Chromium E2E | 1/1 | ไม่ได้วัด JS coverage |
-| **รวม** | **48/48** | ไม่รวม coverage ข้ามขอบเขต |
+| Playwright Chromium E2E | 4/4 | ไม่ได้วัด JS coverage |
+| **รวม** | **51/51** | ไม่รวม coverage ข้ามขอบเขต |
+
+Browser E2E ประกอบด้วย mock 1 case และ replay ไฟล์วัดจริง Air/Normal/Crack 3 cases จาก `BoneWave-AI/data/real` ผ่าน dashboard/API/WebSocket; ไม่ใช่การวัด hardware ใหม่ และใช้ข้อมูลเดียวกับ reference bank
 
 `device.py` เพิ่มจาก **38.82% เป็น 100% statement coverage** ด้วย fake serial transport; ไม่ใช่ผลตรวจอุปกรณ์จริง ไม่มี failed หรือ skipped cases ในการรันสำเร็จล่าสุด
 
@@ -19,6 +21,8 @@
 - [คำอธิบายสัมภาษณ์และข้อความ CV ล่าสุด](INTERVIEW_TH.md)
 
 ## ตรวจผลล่าสุดและรันซ้ำ
+
+หลักฐานที่เก็บถาวรอยู่ใน `tests/evidence/` ส่วน `test-results/latest/` เป็นผลชั่วคราวที่คำสั่งทดสอบสร้างใหม่ได้ และไม่เก็บใน Git
 
 [GitHub Actions — BoneWave tests](https://github.com/ratchy-oak/NSC_BoneWave/actions/workflows/tests.yml) จะรันทดสอบแยกสองส่วนเมื่อ push หรือเปิด pull request หลัง workflow นี้ถูก push ขึ้น GitHub สำเร็จ แต่ละ run มี artifacts ได้แก่ JUnit XML, coverage รายโมดูล, summary JSON และเวอร์ชัน dependencies จริง ตัวเลขด้านล่างเป็น snapshot ไม่ใช่ตัวเลขที่ปรับเองตาม CI
 
@@ -35,7 +39,7 @@ python tests/run_tests.py --component Prototype
 
 ## ผลทดสอบเดิมก่อนเพิ่ม E2E และ driver tests
 
-วันที่แสดงในรายงาน: **20 กรกฎาคม 2026** (ปรับแก้ภายหลังตามคำขอเจ้าของ ไม่ใช่วันรันจริง; วันรันเดิมคือ 20 กันยายน 2026) ทดสอบด้วย Python 3.12 และ pytest 9.0.2 บนสำเนาของ working tree ณ เวลาตรวจสอบ เป็นผลของการรันครั้งนั้น ไม่ใช่สถานะ CI ของทุก commit
+ผลรันวันที่ **20 กันยายน 2026** ด้วย Python 3.12 และ pytest 9.0.2 บนสำเนาของ working tree ณ เวลาตรวจสอบ เป็นผลของการรันครั้งนั้น ไม่ใช่สถานะ CI ของทุก commit
 
 | ส่วนของระบบ | Test cases | Passed | Failed | Python statement coverage |
 |---|---:|---:|---:|---:|
@@ -61,9 +65,9 @@ python tests/run_tests.py --component Prototype
 
 ## รายงานจากการรัน
 
-- [รายละเอียด environment และวิธีวัด](evidence/2026-07/README.md)
-- BoneWave-AI: [coverage แยกแต่ละโมดูล](evidence/2026-07/BoneWave-AI-coverage.txt) · [JUnit XML](evidence/2026-07/BoneWave-AI-junit.xml)
-- Prototype: [coverage แยกแต่ละโมดูล](evidence/2026-07/Prototype-coverage.txt) · [JUnit XML](evidence/2026-07/Prototype-junit.xml)
+- [รายละเอียด environment และวิธีวัด](evidence/2026-09-20/README.md)
+- BoneWave-AI: [coverage แยกแต่ละโมดูล](evidence/2026-09-20/BoneWave-AI-coverage.txt) · [JUnit XML](evidence/2026-09-20/BoneWave-AI-junit.xml)
+- Prototype: [coverage แยกแต่ละโมดูล](evidence/2026-09-20/Prototype-coverage.txt) · [JUnit XML](evidence/2026-09-20/Prototype-junit.xml)
 
 ## วิธีรันทดสอบ
 

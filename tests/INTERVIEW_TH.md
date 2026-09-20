@@ -10,9 +10,9 @@
 
 ## Coverage ล่าสุดหมายถึงอะไร และ UI ทดสอบอย่างไร?
 
-“หลังเพิ่ม driver tests ผลรัน 21 กันยายน 2026 ได้ Python statement coverage ของ BoneWave-AI/app 590 จาก 624 statements หรือ 94.55% เพิ่มจาก 85.10% ส่วน device.py เพิ่มจาก 38.82% เป็น 100% ด้วย fake serial transport ที่ตรวจ success path, fragmented reads, timeout และ error handling”
+“หลังเพิ่ม driver tests ผลรันวันที่ 21 กันยายน 2026 ได้ Python statement coverage ของ BoneWave-AI/app 590 จาก 624 statements หรือ 94.55% เพิ่มจาก 85.10% ส่วน device.py เพิ่มจาก 38.82% เป็น 100% ด้วย fake serial transport ที่ตรวจ success path, fragmented reads, timeout และ error handling”
 
-“ผมเพิ่ม Playwright E2E 1 case ให้ Chromium เปิด dashboard จริง กดเชื่อมต่อ MOCK เปิดและปิดหน้าต่าง setup แล้วสแกนผ่าน API/WebSocket จริง ตรวจครบ 3 sweeps ผลที่แสดงตรงกับ backend และ disconnect สำเร็จ โดยไม่ stub network responses”
+“ผมเพิ่ม Playwright E2E 4 cases ให้ Chromium เปิด dashboard จริง กดเชื่อมต่อ MOCK เปิดและปิดหน้าต่าง setup แล้วสแกนผ่าน API/WebSocket จริง ตรวจครบ 3 sweeps ผลที่แสดงตรงกับ backend และ disconnect สำเร็จ โดยไม่ stub network responses และเพิ่ม replay ไฟล์วัดจริง Air, Normal, Crack อีก 3 cases ตรวจว่าผลที่แสดงตรงกับกลุ่มไฟล์ต้นทาง ทั้งนี้เป็น same-reference matching ไม่ใช่ independent accuracy”
 
 หลักฐาน: [รายงานล่าสุด](evidence/2026-09-21/README.md), [driver tests](../BoneWave-AI/tests/test_device.py), [browser test](e2e/test_dashboard.py)
 
@@ -32,12 +32,12 @@ Python coverage ไม่รวม JavaScript และไม่ได้รว�
 
 ## จำนวน tests และ bug อธิบายอย่างไร?
 
-“ผลล่าสุดคือ BoneWave-AI Python 41 cases, Prototype 6 cases และ Chromium E2E 1 case รวม 48 cases ผ่านทั้งหมด ไม่พบ skipped cases โดยนับ pytest cases หลังขยาย parametrization จำนวนนี้ไม่ใช่จำนวน bugs ที่เคยพบ”
+“ผลล่าสุดคือ BoneWave-AI Python 41 cases, Prototype 6 cases และ Chromium E2E 4 cases รวม 51 cases ผ่านทั้งหมด ไม่พบ skipped cases โดยนับ pytest cases หลังขยาย parametrization จำนวนนี้ไม่ใช่จำนวน bugs ที่เคยพบ”
 
 เพิ่มแบบฟอร์ม GitHub Issues และ [วิธีบันทึก defect](BUG_TRACKING.md) แล้ว แต่ยังไม่มีตัวเลข defect ที่ยืนยันจาก issue records ในงานนี้ ให้บันทึกเมื่อ reproduce ปัญหาจริงได้ พร้อมแนบ evidence และ regression test
 
 ## ข้อความสำหรับ CV
 
-> พัฒนาและทดสอบ BoneWave ด้วย automated tests 48 cases ผ่านทั้งหมด รวม Playwright/Chromium E2E สำหรับ workflow เชื่อมต่อ–สแกน–แสดงผล–ตัดการเชื่อมต่อ ผ่าน Mock NanoVNA เพิ่ม Python backend statement coverage จาก 85.10% เป็น 94.55% และ device.py จาก 38.82% เป็น 100% ด้วย driver tests พร้อมจัดทำ requirement-to-test traceability และ GitHub Actions workflow (ผลรันในเครื่อง 21 ก.ย. 2026)
+> พัฒนาและทดสอบ BoneWave ด้วย automated tests 51 cases ผ่านทั้งหมด รวม Playwright/Chromium E2E สำหรับ workflow เชื่อมต่อ–สแกน–แสดงผล–ตัดการเชื่อมต่อ ด้วย mock และ replay ข้อมูลวัดจริง 3 กลุ่ม เพิ่ม Python backend statement coverage จาก 85.10% เป็น 94.55% และ device.py จาก 38.82% เป็น 100% ด้วย driver tests พร้อมจัดทำ requirement-to-test traceability และ GitHub Actions workflow (ผลรันในเครื่อง 21 ก.ย. 2026)
 
 ใช้ข้อความเมื่อบทบาทตรงกับงานที่ทำจริง Workflow จะมีผลรันบน GitHub หลัง push; ผลปัจจุบันยืนยันจากการรันในเครื่อง ตรวจผลใหม่และปรับตัวเลข CV เมื่อชุดทดสอบเปลี่ยน

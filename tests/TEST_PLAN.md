@@ -7,6 +7,7 @@ Scope: software behavior of the research prototype. These acceptance requirement
 | R01 | A disconnected dashboard must prevent scans | E01: Scan disabled before connection and after disconnection | Chromium E2E |
 | R02 | A normal sample scan ends after 3 completed sweeps | E01: click MOCK connect and ordinary Scan, observe 3 WebSocket results, rendered final class matching backend, 3 saved S2P files, Scan re-enabled | Chromium E2E |
 | R03 | Reference setup dialog is usable | E01: open setup, see 0 of 3, close dialog | Chromium E2E |
+| R11 | Recorded real measurements work through the dashboard | E02: parameterized Air/Normal/Crack replay; verify source SHA-256, 3 saved sweeps and expected rendered class | Chromium E2E |
 | R04 | Drivers return correct complex channels and frequency axis | D01: shell response parsing; D02: V2 fragmented FIFO payload and normalized S11/S21 values | Driver unit |
 | R05 | Transport failures are visible and connection failures release resources | D03: unopened acquisition rejected, busy port, malformed response, wrong V2 variant, short read timeout; check DeviceError and cleanup | Driver unit |
 | R06 | Device discovery selects the correct adapter | D04: known USB IDs select V2, other/unknown ports select shell, enumeration failure returns empty ports | Driver unit |
@@ -15,11 +16,11 @@ Scope: software behavior of the research prototype. These acceptance requirement
 | R09 | Repeated measurements of one synthetic sample cannot cross train/test split | Existing `test_group_split_and_all_models_train`: sample ID sets are disjoint | Prototype integration |
 | R10 | Pipeline produces required nonempty artifacts | Existing `test_complete_pipeline_creates_required_outputs` | Prototype integration |
 
-Test sources: [E01](e2e/test_dashboard.py), [D01–D04](../BoneWave-AI/tests/test_device.py), [parser](../BoneWave-AI/tests/test_touchstone.py), [live integration](../BoneWave-AI/tests/test_live.py), [Prototype](../Prototype/tests/).
+Test sources: [E01 and E02](e2e/test_dashboard.py), [D01–D04](../BoneWave-AI/tests/test_device.py), [parser](../BoneWave-AI/tests/test_touchstone.py), [live integration](../BoneWave-AI/tests/test_live.py), [Prototype](../Prototype/tests/).
 
 ## Setup and execution
 
-Use Python 3.12. Component tests run through `python tests/run_tests.py` in the appropriate installed environment (see [README](README.md)). They execute on temporary copies. E2E independently starts the real FastAPI server in a temporary copy, uses the existing mock port, and loads real HTML/CSS/JavaScript in Chromium. HTTP and WebSocket responses are not stubbed. The default 3-sweep configuration is preserved; no hidden scan shortcut is invoked.
+Use Python 3.12. Component tests run through `python tests/run_tests.py` in the appropriate installed environment (see [README](README.md)). They execute on temporary copies. E2E independently starts the real FastAPI server in a temporary copy, uses the existing mock port, and loads real HTML/CSS/JavaScript in Chromium. HTTP and WebSocket responses are not stubbed. E02 uses the test-only `replay_app.py` adapter to interpolate recorded complex S11/S21 values into requested segments. It keeps the real reference bank and checks matching against files already in that bank; this is not independent validation. Source filename and SHA-256 are exported per class. The default 3-sweep configuration is preserved; no hidden scan shortcut is invoked.
 
 ```sh
 python -m pip install -r tests/e2e/requirements.txt
@@ -33,6 +34,6 @@ Entry criteria: dependencies/browser installed, reference files available, local
 
 ## Remaining hardware and UI scope
 
-Fake serial transport tests check command handling and error paths; they do not validate USB timing, actual firmware compatibility, calibration, measurement fidelity, cable/fixture effects, or real disconnection recovery. These require a NanoVNA hardware session with model, firmware, settings, raw traces and outcomes recorded. E01 covers one desktop Chromium workflow; full reference capture, mobile layout, other browsers, Streamlit UI and clinical performance are outside this test's scope.
+Fake serial transport tests check command handling and error paths; they do not validate USB timing, actual firmware compatibility, calibration, measurement fidelity, cable/fixture effects, or real disconnection recovery. These require a NanoVNA hardware session with model, firmware, settings, raw traces and outcomes recorded. E01/E02 cover desktop Chromium workflows with mock and recorded real inputs; full reference capture, mobile layout, other browsers, Streamlit UI and clinical performance are outside this test's scope.
 
 Tool references: [Playwright Python library](https://playwright.dev/python/docs/library), [retrying assertions](https://playwright.dev/python/docs/test-assertions).
