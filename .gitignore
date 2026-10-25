@@ -5,3 +5,6 @@ __pycache__/
 .streamlit/
 .DS_Store
 test-results/latest/
+
+# Runtime measurements are local and may contain experimental data.
+data/live_sessions/
