@@ -2,7 +2,6 @@
 """Create factual report images from the implemented BoneWave project."""
 from __future__ import annotations
 
-import subprocess
 import sys
 import shutil
 from pathlib import Path
@@ -205,26 +204,6 @@ def architecture_image():
     fig.tight_layout(); fig.savefig(OUT / "01_software_architecture.png", dpi=180, bbox_inches="tight"); plt.close(fig)
 
 
-def pytest_image():
-    result = subprocess.run([sys.executable, "-m", "pytest", "-q"], cwd=ROOT,
-                            capture_output=True, text=True, check=False)
-    output = (result.stdout + result.stderr).strip()
-    fig, ax = plt.subplots(figsize=(12, 5.5), facecolor="#111827")
-    ax.set_facecolor("#111827"); ax.axis("off")
-    ax.text(.04, .92, "$ python -m pytest -q", transform=ax.transAxes, color="#93c5fd",
-            fontsize=15, family="monospace", fontweight="bold", va="top")
-    ax.text(.04, .76, output, transform=ax.transAxes,
-            color="#d1fae5" if result.returncode == 0 else "#fecaca", fontsize=13,
-            family="monospace", va="top", linespacing=1.55)
-    status = "PASS" if result.returncode == 0 else "FAIL"
-    ax.text(.96, .08, f"BoneWave test status: {status}", transform=ax.transAxes,
-            ha="right", color="#6ee7b7" if result.returncode == 0 else "#fca5a5",
-            fontsize=13, family="monospace")
-    fig.savefig(OUT / "11_pytest_results.png", dpi=180, bbox_inches="tight", facecolor=fig.get_facecolor()); plt.close(fig)
-    if result.returncode != 0:
-        raise SystemExit(result.returncode)
-
-
 def confusion_composite():
     paths = [ROOT / "results" / f"confusion_matrix_{name}.png"
              for name in ("decisiontree", "randomforest", "svm")]
@@ -238,7 +217,7 @@ def confusion_composite():
 if __name__ == "__main__":
     OUT.mkdir(parents=True, exist_ok=True)
     architecture_image(); overview_image(); generation_image(); validation_images(); feature_image()
-    prediction_image(); export_image(); pytest_image(); confusion_composite()
+    prediction_image(); export_image(); confusion_composite()
     shutil.copy2(ROOT / "figures" / "example_s11_s21.png", OUT / "06_s11_s21_graphs.png")
     shutil.copy2(ROOT / "figures" / "model_metric_comparison.png", OUT / "08_model_comparison.png")
     print(f"Report images saved to {OUT}")
